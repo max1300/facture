@@ -1,5 +1,6 @@
 package mre.spring.facture.services;
 
+import lombok.AllArgsConstructor;
 import mre.spring.facture.models.OtherUser;
 import mre.spring.facture.repositories.OtherUserRepository;
 import mre.spring.facture.utils.ServiceUtils;
@@ -7,16 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class OtherUserService implements OtherUserServiceInterface {
 
     private final OtherUserRepository repository;
     private final ServiceUtils<OtherUser> serviceUtils;
-
-    public OtherUserService(OtherUserRepository repository, ServiceUtils<OtherUser> serviceUtils) {
-        this.repository = repository;
-        this.serviceUtils = serviceUtils;
-    }
 
     @Override
     public OtherUser save(OtherUser otherUser) {

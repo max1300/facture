@@ -40,13 +40,10 @@ public class DepenseService implements DepenseServiceInterface{
 
     @Override
     public List<DepenseDto> allDepenses() {
-        List<DepenseDto> depenseDtos = depenseRepository.findAll()
+        return depenseRepository.findAll()
                 .stream()
                 .map(depenseMapper::depenseToDto)
                 .collect(Collectors.toList());
-
-        return depenseDtos;
-
     }
 
     @Override

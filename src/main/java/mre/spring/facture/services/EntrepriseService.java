@@ -1,5 +1,6 @@
 package mre.spring.facture.services;
 
+import lombok.AllArgsConstructor;
 import mre.spring.facture.models.Entreprise;
 import mre.spring.facture.repositories.EntrepriseRepository;
 import mre.spring.facture.utils.ServiceUtils;
@@ -7,16 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class EntrepriseService implements EntrepriseServiceInterface {
 
     private final EntrepriseRepository repository;
     private final ServiceUtils<Entreprise> serviceUtils;
-
-    public EntrepriseService(EntrepriseRepository repository, ServiceUtils<Entreprise> serviceUtils) {
-        this.repository = repository;
-        this.serviceUtils = serviceUtils;
-    }
 
     @Override
     public Entreprise save(Entreprise entreprise) {

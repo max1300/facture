@@ -1,5 +1,6 @@
 package mre.spring.facture.services;
 
+import lombok.AllArgsConstructor;
 import mre.spring.facture.dto.mappers.RentreeMapper;
 import mre.spring.facture.dto.modelsdto.RentreeDto;
 import mre.spring.facture.models.Rentree;
@@ -11,19 +12,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Service
 public class RentreeService implements RentreeServiceInterface {
 
     private final RentreeRepository rentreeRepository;
     private final ServiceUtils<Rentree> serviceUtils;
     private final RentreeMapper rentreeMapper;
-
-    public RentreeService(RentreeRepository rentreeRepository, ServiceUtils<Rentree> serviceUtils, RentreeMapper rentreeMapper) {
-        this.rentreeRepository = rentreeRepository;
-        this.serviceUtils = serviceUtils;
-        this.rentreeMapper = rentreeMapper;
-    }
-
 
     @Override
     public Rentree save(RentreeDto rentreeDto) {

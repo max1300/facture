@@ -1,10 +1,13 @@
 package mre.spring.facture.models;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 public class Category{
 
@@ -20,43 +23,4 @@ public class Category{
     @OneToMany(fetch = FetchType.LAZY)
     private List<Rentree> rentrees = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<Depense> getDepenses() {
-        return depenses;
-    }
-
-    public void setDepenses(List<Depense> depenses) {
-        this.depenses = depenses;
-    }
-
-    public List<Rentree> getRentrees() {
-        return rentrees;
-    }
-
-    public void setRentrees(List<Rentree> rentrees) {
-        this.rentrees = rentrees;
-    }
 }

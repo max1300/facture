@@ -1,9 +1,12 @@
 package mre.spring.facture.models;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.Instant;
 
+@Data
 @Entity
 public class Rentree{
 
@@ -18,44 +21,9 @@ public class Rentree{
     @JoinColumn(name = "ID_CATEGORY")
     private Category category;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Double amount) {
-        this.amount = amount;
-    }
-
-    public Instant getDate() {
-        return date;
-    }
-
     @PrePersist
     public void setDate() {
         this.date = Instant.now();
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
 }

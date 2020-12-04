@@ -1,5 +1,6 @@
 package mre.spring.facture.bootstrap;
 
+import lombok.AllArgsConstructor;
 import mre.spring.facture.models.Category;
 import mre.spring.facture.models.Depense;
 import mre.spring.facture.models.Rentree;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 @Component
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -20,11 +22,6 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private final RentreeRepository rentreeRepository;
     private final CategoryRepository categoryRepository;
 
-    public DataLoader(DepenseRepository depenseRepository, RentreeRepository rentreeRepository, CategoryRepository categoryRepository) {
-        this.depenseRepository = depenseRepository;
-        this.rentreeRepository = rentreeRepository;
-        this.categoryRepository = categoryRepository;
-    }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {

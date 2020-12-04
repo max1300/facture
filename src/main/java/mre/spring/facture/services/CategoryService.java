@@ -1,5 +1,6 @@
 package mre.spring.facture.services;
 
+import lombok.AllArgsConstructor;
 import mre.spring.facture.models.Category;
 import mre.spring.facture.repositories.CategoryRepository;
 import mre.spring.facture.utils.ServiceUtils;
@@ -7,16 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class CategoryService implements CategoryServiceInterface{
 
     private final CategoryRepository categoryRepository;
     private final ServiceUtils<Category> serviceUtils;
-
-    public CategoryService(CategoryRepository categoryRepository, ServiceUtils<Category> serviceUtils) {
-        this.categoryRepository = categoryRepository;
-        this.serviceUtils = serviceUtils;
-    }
 
     @Override
     public Category save(Category category) {

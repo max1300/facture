@@ -1,5 +1,6 @@
 package mre.spring.facture.api;
 
+import lombok.AllArgsConstructor;
 import mre.spring.facture.dto.modelsdto.RentreeDto;
 import mre.spring.facture.models.Rentree;
 import mre.spring.facture.services.RentreeServiceInterface;
@@ -8,15 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/rentrees")
 public class RentreeResource {
 
     private final RentreeServiceInterface service;
 
-    public RentreeResource(RentreeServiceInterface service) {
-        this.service = service;
-    }
 
     @GetMapping
     @Transactional(Transactional.TxType.SUPPORTS)
