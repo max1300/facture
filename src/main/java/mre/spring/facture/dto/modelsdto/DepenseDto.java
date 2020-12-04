@@ -5,10 +5,10 @@ import java.time.Instant;
 public class DepenseDto {
 
     private Long id;
-    private Double amount;
+    private Double montant;
     private Instant date;
     private String description;
-    private CategoryDto category;
+    private CategoryDto categoryDto;
 
     public Long getId() {
         return id;
@@ -18,12 +18,12 @@ public class DepenseDto {
         this.id = id;
     }
 
-    public Double getAmount() {
-        return amount;
+    public Double getMontant() {
+        return montant;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setMontant(Double montant) {
+        this.montant = montant;
     }
 
     public Instant getDate() {
@@ -42,11 +42,11 @@ public class DepenseDto {
         this.description = description;
     }
 
-    public CategoryDto getCategory() {
-        return category;
+    public CategoryDto getCategoryDto() {
+        return categoryDto;
     }
 
-    public void setCategory(CategoryDto category) {
-        this.category = category;
+    public void setCategoryDto(CategoryDto categoryDto) {
+        this.categoryDto = categoryDto;
     }
 }

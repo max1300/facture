@@ -8,7 +8,7 @@ public class RentreeDto {
     private Double amount;
     private Instant date;
     private String description;
-    private CategoryDto category;
+    private CategoryDto categoryDto;
 
     public Long getId() {
         return id;
@@ -42,11 +42,11 @@ public class RentreeDto {
         this.description = description;
     }
 
-    public CategoryDto getCategory() {
-        return category;
+    public CategoryDto getCategoryDto() {
+        return categoryDto;
     }
 
-    public void setCategory(CategoryDto category) {
-        this.category = category;
+    public void setCategoryDto(CategoryDto categoryDto) {
+        this.categoryDto = categoryDto;
     }
 }

@@ -1,10 +1,12 @@
 package mre.spring.facture.api;
 
+import mre.spring.facture.dto.modelsdto.RentreeDto;
 import mre.spring.facture.models.Rentree;
 import mre.spring.facture.services.RentreeServiceInterface;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/rentrees")
@@ -18,20 +20,20 @@ public class RentreeResource {
 
     @GetMapping
     @Transactional(Transactional.TxType.SUPPORTS)
-    public Iterable<Rentree> allRentrees() {
+    public List<RentreeDto> allRentrees() {
         return service.allRentrees();
     }
 
     @GetMapping("/{rentreeId}")
     @Transactional(Transactional.TxType.SUPPORTS)
-    public Rentree getOne(@PathVariable("rentreeId") Long id) {
+    public RentreeDto getOne(@PathVariable("rentreeId") Long id) {
         return service.getById(id);
     }
 
     @PostMapping
     @Transactional(Transactional.TxType.REQUIRED)
-    public Rentree create(@RequestBody Rentree rentree) {
-        return service.save(rentree);
+    public Rentree create(@RequestBody RentreeDto rentreeDto) {
+        return service.save(rentreeDto);
     }
 
     @PostMapping("/{rentreeId}")

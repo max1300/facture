@@ -7,9 +7,8 @@ public class CategoryDto {
     private Long id;
     private String nom;
     private String description;
-    private String affiliation;
-    private List<DepenseDto> depenses;
-    private List<RentreeDto> rentrees;
+    private List<DepenseDto> depensesDto;
+    private List<RentreeDto> rentreesDto;
 
     public Long getId() {
         return id;
@@ -35,27 +34,19 @@ public class CategoryDto {
         this.description = description;
     }
 
-    public String getAffiliation() {
-        return affiliation;
+    public List<DepenseDto> getDepensesDto() {
+        return depensesDto;
     }
 
-    public void setAffiliation(String affiliation) {
-        this.affiliation = affiliation;
+    public void setDepensesDto(List<DepenseDto> depensesDto) {
+        this.depensesDto = depensesDto;
     }
 
-    public List<DepenseDto> getDepenses() {
-        return depenses;
+    public List<RentreeDto> getRentreesDto() {
+        return rentreesDto;
     }
 
-    public void setDepenses(List<DepenseDto> depenses) {
-        this.depenses = depenses;
-    }
-
-    public List<RentreeDto> getRentrees() {
-        return rentrees;
-    }
-
-    public void setRentrees(List<RentreeDto> rentrees) {
-        this.rentrees = rentrees;
+    public void setRentreesDto(List<RentreeDto> rentreesDto) {
+        this.rentreesDto = rentreesDto;
     }
 }

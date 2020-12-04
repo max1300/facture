@@ -1,12 +1,15 @@
 package mre.spring.facture.services;
 
+import mre.spring.facture.dto.modelsdto.RentreeDto;
 import mre.spring.facture.models.Rentree;
+
+import java.util.List;
 
 public interface RentreeServiceInterface {
 
-    Rentree save(Rentree rentree);
+    Rentree save(RentreeDto rentreeDto);
     Rentree update(Long id, Rentree rentree);
-    Iterable<Rentree> allRentrees();
-    Rentree getById(Long id);
+    List<RentreeDto> allRentrees();
+    RentreeDto getById(Long id);
     void delete(Rentree rentree);
 }

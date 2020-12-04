@@ -2,6 +2,7 @@ package mre.spring.facture.models;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,13 +13,12 @@ public class Category{
     private Long id;
     private String nom;
     private String description;
-    private String affiliation;
 
-    @OneToMany(mappedBy = "category")
-    private List<Depense> depenses;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Depense> depenses = new ArrayList<>();
 
-    @OneToMany(mappedBy = "category")
-    private List<Rentree> rentrees;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Rentree> rentrees = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -42,14 +42,6 @@ public class Category{
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAffiliation() {
-        return affiliation;
-    }
-
-    public void setAffiliation(String affiliation) {
-        this.affiliation = affiliation;
     }
 
     public List<Depense> getDepenses() {

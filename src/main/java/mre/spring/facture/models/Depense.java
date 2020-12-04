@@ -13,7 +13,8 @@ public class Depense{
     private Instant date;
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_CATEGORY")
     private Category category;
 
 //    private User origine;

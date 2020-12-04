@@ -1,27 +1,33 @@
 package mre.spring.facture.services;
 
+import mre.spring.facture.dto.mappers.RentreeMapper;
+import mre.spring.facture.dto.modelsdto.RentreeDto;
 import mre.spring.facture.models.Rentree;
 import mre.spring.facture.repositories.RentreeRepository;
 import mre.spring.facture.utils.ServiceUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RentreeService implements RentreeServiceInterface {
 
     private final RentreeRepository rentreeRepository;
     private final ServiceUtils<Rentree> serviceUtils;
+    private final RentreeMapper rentreeMapper;
 
-    public RentreeService(RentreeRepository rentreeRepository, ServiceUtils<Rentree> serviceUtils) {
+    public RentreeService(RentreeRepository rentreeRepository, ServiceUtils<Rentree> serviceUtils, RentreeMapper rentreeMapper) {
         this.rentreeRepository = rentreeRepository;
         this.serviceUtils = serviceUtils;
+        this.rentreeMapper = rentreeMapper;
     }
 
 
     @Override
-    public Rentree save(Rentree rentree) {
-        return rentreeRepository.save(rentree);
+    public Rentree save(RentreeDto rentreeDto) {
+        return rentreeRepository.save(rentreeMapper.dtoToRentree(rentreeDto));
     }
 
     @Override
@@ -38,13 +44,16 @@ public class RentreeService implements RentreeServiceInterface {
     }
 
     @Override
-    public Iterable<Rentree> allRentrees() {
-        return rentreeRepository.findAll();
+    public List<RentreeDto> allRentrees() {
+        return rentreeRepository.findAll()
+                .stream()
+                .map(rentreeMapper::rentreeToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Rentree getById(Long id) {
-        return rentreeRepository.findById(id).orElse(null);
+    public RentreeDto getById(Long id) {
+        return rentreeMapper.rentreeToDto(rentreeRepository.findById(id).orElse(null));
     }
 
     @Override

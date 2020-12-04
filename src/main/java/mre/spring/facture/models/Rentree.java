@@ -14,7 +14,8 @@ public class Rentree{
     private Instant date;
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_CATEGORY")
     private Category category;
 
     public Long getId() {
@@ -57,6 +58,4 @@ public class Rentree{
     public void setCategory(Category category) {
         this.category = category;
     }
-
-
 }
