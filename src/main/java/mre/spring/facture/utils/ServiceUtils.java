@@ -11,9 +11,7 @@ public class ServiceUtils<T> {
     public T copyProperties(T entityDest, T entitySource) {
         try {
             BeanUtils.copyProperties(entityDest, entitySource);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
 
