@@ -1,7 +1,6 @@
 package mre.spring.facture.api;
 
 import lombok.AllArgsConstructor;
-import mre.spring.facture.dto.mappers.DepenseMapper;
 import mre.spring.facture.dto.modelsdto.DepenseDto;
 import mre.spring.facture.models.Depense;
 import mre.spring.facture.services.DepenseServiceInterface;
@@ -16,7 +15,6 @@ import java.util.List;
 public class DepenseResource {
 
     private final DepenseServiceInterface service;
-    private final DepenseMapper depenseMapper;
 
     @GetMapping
     public List<DepenseDto> allDepenses() {
