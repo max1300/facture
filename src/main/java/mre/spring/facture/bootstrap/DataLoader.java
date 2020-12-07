@@ -64,7 +64,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         Depense depense2 = new Depense();
         depense2.setAmount(40.0);
-        depense2.setDescription("Agio");
+        depense2.setDescription("Agio pour la banque");
         depense2.setCategory(banque);
 
         depenses.add(depense);

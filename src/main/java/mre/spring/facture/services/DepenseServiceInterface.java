@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface DepenseServiceInterface {
 
-    Depense save(DepenseDto depenseDto);
+    Depense save(Depense depense);
     Depense update(Long id, Depense depense);
-    List<DepenseDto> allDepenses();
-    DepenseDto getById(Long id);
+    List<Depense> allDepenses();
+    Depense getById(Long id);
     void delete(Depense depense);
 }

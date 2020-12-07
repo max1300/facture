@@ -5,6 +5,7 @@ import mre.spring.facture.dto.mappers.RentreeMapper;
 import mre.spring.facture.dto.modelsdto.DepenseDto;
 import mre.spring.facture.dto.modelsdto.RentreeDto;
 import mre.spring.facture.models.Depense;
+import mre.spring.facture.models.Rentree;
 import mre.spring.facture.services.DepenseServiceInterface;
 import mre.spring.facture.services.RentreeServiceInterface;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +48,7 @@ class RentreeResourceTest {
 
     MockMvc mockMvc;
 
-    List<RentreeDto> rentrees;
+    List<Rentree> rentrees;
 
     private JacksonTester<RentreeDto> jsonRentreeDto;
 
@@ -57,9 +58,17 @@ class RentreeResourceTest {
         mockMvc = MockMvcBuilders.
                 standaloneSetup(rentreeResource).build();
 
-        RentreeDto salaire = RentreeDto.builder().id(1L).amount(17.2).description("salaire").build();
-        RentreeDto mutuelle = RentreeDto.builder().id(2L).amount(72.0).description("mutuelle").build();
-        rentrees = Arrays.asList(salaire, mutuelle);
+        Rentree rentree = new Rentree();
+        rentree.setId(1L);
+        rentree.setAmount(17.2);
+        rentree.setDescription("salaire");
+
+        Rentree rentree1 = new Rentree();
+        rentree1.setId(2L);
+        rentree1.setAmount(72.0);
+        rentree1.setDescription("mutuelle");
+
+        rentrees = Arrays.asList(rentree, rentree1);
     }
 
     @Test
@@ -87,10 +96,6 @@ class RentreeResourceTest {
                 .getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo(
-                jsonRentreeDto.write(RentreeDto.builder().id(2L).amount(72.0).description("mutuelle").build())
-                        .getJson());
-
         verify(serviceInterface, times(1)).getById(2L);
 
     }

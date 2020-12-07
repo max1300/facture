@@ -18,11 +18,10 @@ public class DepenseService implements DepenseServiceInterface{
 
     private final DepenseRepository depenseRepository;
     private final ServiceUtils<Depense> serviceUtils;
-    private final DepenseMapper depenseMapper;
 
     @Override
-    public Depense save(DepenseDto depenseDto) {
-        return depenseRepository.save(depenseMapper.dtoToDepense(depenseDto));
+    public Depense save(Depense depense) {
+        return depenseRepository.save(depense);
     }
 
     @Override
@@ -39,16 +38,13 @@ public class DepenseService implements DepenseServiceInterface{
     }
 
     @Override
-    public List<DepenseDto> allDepenses() {
-        return depenseRepository.findAll()
-                .stream()
-                .map(depenseMapper::depenseToDto)
-                .collect(Collectors.toList());
+    public List<Depense> allDepenses() {
+        return depenseRepository.findAll();
     }
 
     @Override
-    public DepenseDto getById(Long id) {
-        return depenseMapper.depenseToDto(depenseRepository.findById(id).orElse(null));
+    public Depense getById(Long id) {
+        return depenseRepository.findById(id).orElse(null);
     }
 
     @Override

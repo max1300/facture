@@ -18,11 +18,10 @@ public class RentreeService implements RentreeServiceInterface {
 
     private final RentreeRepository rentreeRepository;
     private final ServiceUtils<Rentree> serviceUtils;
-    private final RentreeMapper rentreeMapper;
 
     @Override
-    public Rentree save(RentreeDto rentreeDto) {
-        return rentreeRepository.save(rentreeMapper.dtoToRentree(rentreeDto));
+    public Rentree save(Rentree rentree) {
+        return rentreeRepository.save(rentree);
     }
 
     @Override
@@ -39,16 +38,13 @@ public class RentreeService implements RentreeServiceInterface {
     }
 
     @Override
-    public List<RentreeDto> allRentrees() {
-        return rentreeRepository.findAll()
-                .stream()
-                .map(rentreeMapper::rentreeToDto)
-                .collect(Collectors.toList());
+    public List<Rentree> allRentrees() {
+        return rentreeRepository.findAll();
     }
 
     @Override
-    public RentreeDto getById(Long id) {
-        return rentreeMapper.rentreeToDto(rentreeRepository.findById(id).orElse(null));
+    public Rentree getById(Long id) {
+        return rentreeRepository.findById(id).orElse(null);
     }
 
     @Override

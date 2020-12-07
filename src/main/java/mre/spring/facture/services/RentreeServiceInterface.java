@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface RentreeServiceInterface {
 
-    Rentree save(RentreeDto rentreeDto);
+    Rentree save(Rentree rentree);
     Rentree update(Long id, Rentree rentree);
-    List<RentreeDto> allRentrees();
-    RentreeDto getById(Long id);
+    List<Rentree> allRentrees();
+    Rentree getById(Long id);
     void delete(Rentree rentree);
 }

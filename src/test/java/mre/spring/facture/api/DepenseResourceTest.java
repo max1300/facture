@@ -1,6 +1,7 @@
 package mre.spring.facture.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import mre.spring.facture.dto.mappers.DepenseMapper;
 import mre.spring.facture.dto.modelsdto.DepenseDto;
 import mre.spring.facture.models.Depense;
 import mre.spring.facture.services.DepenseServiceInterface;
@@ -28,6 +29,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ExtendWith(MockitoExtension.class)
 class DepenseResourceTest {
@@ -35,13 +37,15 @@ class DepenseResourceTest {
     @Mock
     DepenseServiceInterface serviceInterface;
 
+    @Mock
+    DepenseMapper depenseMapper;
+
     @InjectMocks
     DepenseResource depenseResource;
 
     MockMvc mockMvc;
 
-    List<DepenseDto> depenses;
-
+    List<Depense> depenses;
     private JacksonTester<DepenseDto> jsonDepenseDto;
     private JacksonTester<Depense> jsonDepense;
 
@@ -51,9 +55,17 @@ class DepenseResourceTest {
         mockMvc = MockMvcBuilders.
                 standaloneSetup(depenseResource).build();
 
-        DepenseDto achat_noel = DepenseDto.builder().id(1L).montant(17.2).description("achat noel").build();
-        DepenseDto essence = DepenseDto.builder().id(2L).montant(72.0).description("essence").build();
-        depenses = Arrays.asList(achat_noel, essence);
+        Depense depense = new Depense();
+        depense.setAmount(17.2);
+        depense.setId(1L);
+        depense.setDescription("achat noel");
+
+        Depense depense1 = new Depense();
+        depense1.setAmount(72.0);
+        depense1.setId(2L);
+        depense1.setDescription("essence");
+
+        depenses = Arrays.asList(depense, depense1);
     }
 
     @Test
@@ -81,10 +93,6 @@ class DepenseResourceTest {
                 .getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo(
-                jsonDepenseDto.write(DepenseDto.builder().id(2L).montant(72.0).description("essence").build())
-                        .getJson());
-
     }
 
     @Test
@@ -95,7 +103,6 @@ class DepenseResourceTest {
                         .content(jsonDepenseDto.write(DepenseDto.builder().montant(102.0).description("essence chère").build()).getJson())
                 )
                 .andExpect(status().isOk());
-
     }
 
 }
