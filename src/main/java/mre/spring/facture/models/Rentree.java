@@ -37,6 +37,9 @@ public class Rentree{
     @Valid
     private Category category;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Account account;
+
     @PrePersist
     public void setDate() {
         this.date = LocalDate.now();
