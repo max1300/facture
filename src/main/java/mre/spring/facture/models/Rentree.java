@@ -7,14 +7,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
-import java.time.Instant;
+import java.time.LocalDate;
 
 @Data
 @Entity
+@NamedEntityGraph(name = "rentree.loadCategory",
+        attributeNodes = @NamedAttributeNode("category"))
 public class Rentree{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "rentree_id")
     private Long id;
 
     @NotNull(message = "le montant ne peut être nul")
@@ -22,7 +25,7 @@ public class Rentree{
     private Double amount;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Instant date;
+    private LocalDate date;
 
     @Size(min = 10, max = 255,
             message = "la description doit contenir suffisamment d'indications")
@@ -30,12 +33,13 @@ public class Rentree{
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_CATEGORY")
+    @JoinColumn(name="category_id")
+    @Valid
     private Category category;
 
     @PrePersist
     public void setDate() {
-        this.date = Instant.now();
+        this.date = LocalDate.now();
     }
 
 }

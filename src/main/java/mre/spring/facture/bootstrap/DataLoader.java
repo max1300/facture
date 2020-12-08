@@ -30,7 +30,6 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     private Iterable<Rentree> getRentrees() {
-
         Category mutuelle = categoryRepository.findByNom("Mutuelle");
 
         List<Rentree> rentrees = new ArrayList<>();
@@ -50,12 +49,9 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     }
 
     private Iterable<Depense> getDepenses() {
-
+        List<Depense> depenses = new ArrayList<>();
         Category maison = categoryRepository.findByNom("Maison");
         Category banque = categoryRepository.findByNom("Banque");
-
-
-        List<Depense> depenses = new ArrayList<>();
 
         Depense depense = new Depense();
         depense.setAmount(100.0);

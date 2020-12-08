@@ -3,10 +3,8 @@ package mre.spring.facture.dto.modelsdto;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Getter
 @Setter
@@ -22,7 +20,4 @@ public class CategoryDto {
             message = "la description doit contenir suffisamment d'indications")
     @NotEmpty
     private String description;
-
-    private List<DepenseDto> depensesDto;
-    private List<RentreeDto> rentreesDto;
 }

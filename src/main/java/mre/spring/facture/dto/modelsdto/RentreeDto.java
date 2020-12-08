@@ -10,7 +10,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-import java.time.Instant;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -21,24 +21,26 @@ public class RentreeDto {
 
     @NotNull(message = "le montant ne peut être nul")
     @Positive(message = "le montant de la rentree d'argent doit au minimum être de 1 euros")
-    private Double amount;
+    private Double montant;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Instant date;
+    private LocalDate date;
 
     @Size(min = 10, max = 255,
             message = "la description doit contenir suffisamment d'indications")
     @NotEmpty
     private String description;
 
+    @Valid
     private CategoryDto categoryDto;
 
     public RentreeDto() {
     }
 
-    public RentreeDto(Long id, Double amount, Instant date, String description, CategoryDto categoryDto) {
+    public RentreeDto(Long id, @NotNull(message = "le montant ne peut être nul") @Positive(message = "le montant de la rentree d'argent doit au minimum être de 1 euros") Double montant, LocalDate date, @Size(min = 10, max = 255,
+            message = "la description doit contenir suffisamment d'indications") @NotEmpty String description, CategoryDto categoryDto) {
         this.id = id;
-        this.amount = amount;
+        this.montant = montant;
         this.date = date;
         this.description = description;
         this.categoryDto = categoryDto;

@@ -9,14 +9,17 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
-import java.time.Instant;
+import java.time.LocalDate;
 
 @Data
 @Entity
+@NamedEntityGraph(name = "depense.loadCategory",
+        attributeNodes = @NamedAttributeNode("category"))
 public class Depense{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "depense_id")
     private Long id;
 
     @NotNull(message = "le montant ne peut être nul")
@@ -24,7 +27,7 @@ public class Depense{
     private Double amount;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Instant date;
+    private LocalDate date;
 
     @Size(min = 10, max = 255,
             message = "la description doit contenir suffisamment d'indications")
@@ -32,16 +35,14 @@ public class Depense{
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_CATEGORY")
+    @JoinColumn(name="category_id")
+    @Valid
     private Category category;
-
-//    private User origine;
-//    private Destinataire destinataire;
 
 
     @PrePersist
     public void setDate() {
-        this.date = Instant.now();
+        this.date = LocalDate.now();
     }
 
 }

@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 public interface RentreeMapper {
 
     @Mapping(source = "category", target = "categoryDto")
+    @Mapping(source = "amount", target = "montant")
     @Mapping(source = "date", target = "date", dateFormat = "dd/MMM/yyyy")
     RentreeDto rentreeToDto(Rentree rentree);
 

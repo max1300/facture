@@ -102,7 +102,7 @@ class RentreeResourceTest {
 
     @Test
     void create() throws Exception {
-        RentreeDto essence_chère = RentreeDto.builder().amount(102.0).description("essence chère").build();
+        RentreeDto essence_chère = RentreeDto.builder().montant(102.0).description("essence chère").build();
 
         mockMvc.perform(
                 post("/rentrees")
