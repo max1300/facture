@@ -1,6 +1,5 @@
 package mre.spring.facture.services;
 
-import mre.spring.facture.dto.modelsdto.DepenseDto;
 import mre.spring.facture.models.Depense;
 
 import java.util.List;

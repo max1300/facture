@@ -34,15 +34,19 @@ public class RentreeDto {
     @Valid
     private CategoryDto categoryDto;
 
+    @Valid
+    private AccountDto accountDto;
+
     public RentreeDto() {
     }
 
     public RentreeDto(Long id, @NotNull(message = "le montant ne peut être nul") @Positive(message = "le montant de la rentree d'argent doit au minimum être de 1 euros") Double montant, LocalDate date, @Size(min = 10, max = 255,
-            message = "la description doit contenir suffisamment d'indications") @NotEmpty String description, CategoryDto categoryDto) {
+            message = "la description doit contenir suffisamment d'indications") @NotEmpty String description, @Valid CategoryDto categoryDto, @Valid AccountDto accountDto) {
         this.id = id;
         this.montant = montant;
         this.date = date;
         this.description = description;
         this.categoryDto = categoryDto;
+        this.accountDto = accountDto;
     }
 }

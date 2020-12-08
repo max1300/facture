@@ -39,7 +39,7 @@ public class Depense{
     @Valid
     private Category category;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Account account;
 
 
