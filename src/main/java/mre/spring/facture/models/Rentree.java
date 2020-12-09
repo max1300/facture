@@ -1,6 +1,7 @@
 package mre.spring.facture.models;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -38,6 +39,7 @@ public class Rentree{
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonIgnoreProperties({"rentrees"})
     private Account account;
 
     @PrePersist

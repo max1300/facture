@@ -24,7 +24,7 @@ public class RentreeResource {
     @Transactional(Transactional.TxType.SUPPORTS)
     public List<RentreeDto> allRentrees() {
         return service.allRentrees().stream()
-                .map(rentreeMapper::rentreeToDto)
+                .map(rentree -> rentreeMapper.rentreeToDto(rentree))
                 .collect(Collectors.toList());
     }
 

@@ -2,12 +2,9 @@ package mre.spring.facture.api;
 
 import lombok.AllArgsConstructor;
 import mre.spring.facture.dto.mappers.AccountMapper;
-import mre.spring.facture.dto.mappers.DepenseMapper;
 import mre.spring.facture.dto.modelsdto.AccountDto;
 import mre.spring.facture.models.Account;
-import mre.spring.facture.models.Depense;
 import mre.spring.facture.services.AccountServiceInterface;
-import mre.spring.facture.services.DepenseServiceInterface;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -26,7 +23,7 @@ public class AccountResource {
     @GetMapping
     public List<AccountDto> allAccounts() {
         return service.allAccounts().stream()
-                .map(accountMapper::accountToDto)
+                .map(account -> accountMapper.accountToDto(account))
                 .collect(Collectors.toList());
     }
 

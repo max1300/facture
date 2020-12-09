@@ -1,6 +1,10 @@
 package mre.spring.facture.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,7 +15,8 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @Entity
 @NamedEntityGraph(name = "depense.loadCategory",
         attributeNodes = @NamedAttributeNode("category"))
@@ -40,6 +45,7 @@ public class Depense{
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonIgnoreProperties({"depenses"})
     private Account account;
 
 

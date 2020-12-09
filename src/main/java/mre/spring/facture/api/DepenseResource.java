@@ -23,7 +23,7 @@ public class DepenseResource {
     @GetMapping
     public List<DepenseDto> allDepenses() {
         return service.allDepenses().stream()
-                .map(depenseMapper::depenseToDto)
+                .map(depense -> depenseMapper.depenseToDto(depense))
                 .collect(Collectors.toList());
     }
 

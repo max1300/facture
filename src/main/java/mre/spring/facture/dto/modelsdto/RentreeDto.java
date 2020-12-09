@@ -1,5 +1,6 @@
 package mre.spring.facture.dto.modelsdto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +36,9 @@ public class RentreeDto {
     private CategoryDto categoryDto;
 
     @Valid
+    @JsonIgnoreProperties({"rentrees", "depenses"})
     private AccountDto accountDto;
+
 
     public RentreeDto() {
     }

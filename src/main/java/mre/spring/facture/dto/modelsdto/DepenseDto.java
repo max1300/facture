@@ -1,6 +1,8 @@
 package mre.spring.facture.dto.modelsdto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
+import mre.spring.facture.models.Account;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
@@ -33,6 +35,7 @@ public class DepenseDto {
     private CategoryDto categoryDto;
 
     @Valid
+    @JsonIgnoreProperties({"rentrees", "depenses"})
     private AccountDto accountDto;
 
     public DepenseDto() {

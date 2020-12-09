@@ -4,8 +4,13 @@ import lombok.AllArgsConstructor;
 import mre.spring.facture.models.Account;
 import mre.spring.facture.repositories.AccountRepository;
 import mre.spring.facture.utils.ServiceUtils;
+import org.hibernate.Hibernate;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,4 +53,11 @@ public class AccountService implements AccountServiceInterface{
     public void delete(Account account) {
         accountRepository.delete(account);
     }
+
+    @Override
+    public Account findByCreatedAt(LocalDate date) {
+        Account byCreatedAt = accountRepository.findByCreatedAt(date);
+        return byCreatedAt;
+    }
+
 }

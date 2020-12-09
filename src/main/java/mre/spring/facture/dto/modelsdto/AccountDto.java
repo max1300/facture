@@ -1,5 +1,6 @@
 package mre.spring.facture.dto.modelsdto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import mre.spring.facture.models.Depense;
@@ -21,7 +22,7 @@ public class AccountDto {
 
     @NotEmpty
     @NotNull
-    private String name;
+    private String nom;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate createdAt;
@@ -30,16 +31,18 @@ public class AccountDto {
 //    private ApiUser apiUser;
 
     @Valid
-    private Set<Depense> depenses = new HashSet<>();
+    @JsonIgnoreProperties({"account"})
+    private Set<DepenseDto> depenses = new HashSet<>();
     @Valid
-    private Set<Rentree> rentrees = new HashSet<>();
+    @JsonIgnoreProperties({"account"})
+    private Set<RentreeDto> rentrees = new HashSet<>();
 
     public AccountDto() {
     }
 
-    public AccountDto(Long id, @NotEmpty @NotNull String name, LocalDate createdAt, @Valid Set<Depense> depenses, @Valid Set<Rentree> rentrees) {
+    public AccountDto(Long id, @NotEmpty @NotNull String nom, LocalDate createdAt, @Valid Set<DepenseDto> depenses, @Valid Set<RentreeDto> rentrees) {
         this.id = id;
-        this.name = name;
+        this.nom = nom;
         this.createdAt = createdAt;
         this.depenses = depenses;
         this.rentrees = rentrees;
