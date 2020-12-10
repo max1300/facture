@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/depenses")
+@RequestMapping("/api/depenses")
 public class DepenseResource {
 
     private final DepenseServiceInterface service;

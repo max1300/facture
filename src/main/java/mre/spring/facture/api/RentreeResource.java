@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/rentrees")
+@RequestMapping("/api/rentrees")
 public class RentreeResource {
 
     private final RentreeServiceInterface service;

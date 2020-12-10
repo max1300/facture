@@ -4,13 +4,16 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
+@EnableAsync
 public class FactureApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FactureApplication.class, args);
     }
+
 
     @Bean
     public Hibernate5Module hibernate5Module() {
