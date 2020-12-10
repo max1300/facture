@@ -56,7 +56,8 @@ public class JwtProvider {
 
     private PrivateKey getPrivateKey() {
         try {
-            return (PrivateKey) keyStore.getKey(keyStoreAlias, keyStorePassword.toCharArray());
+            PrivateKey key = (PrivateKey) keyStore.getKey(keyStoreAlias, keyStorePassword.toCharArray());
+            return key;
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
             throw new SpringAuthException("Exception occured while retrieving public key from keystore", e);
         }
