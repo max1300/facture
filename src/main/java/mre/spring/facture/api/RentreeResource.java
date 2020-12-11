@@ -48,8 +48,8 @@ public class RentreeResource {
 
     @PostMapping("/{rentreeId}")
     @Transactional(Transactional.TxType.REQUIRED)
-    public ResponseEntity<Rentree> update(@PathVariable("rentreeId") Long id, @Valid @RequestBody Rentree rentree) {
-        Rentree update = service.update(id, rentree);
+    public ResponseEntity<Rentree> update(@PathVariable("rentreeId") Long id, @Valid @RequestBody RentreeDto rentreeDto) {
+        Rentree update = service.update(id, rentreeMapper.dtoToRentree(rentreeDto));
         return new ResponseEntity<>(update, HttpStatus.OK);
     }
 }

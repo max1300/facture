@@ -46,8 +46,8 @@ public class DepenseResource {
 
     @PostMapping("/{depenseId}")
     @Transactional(Transactional.TxType.REQUIRED)
-    public ResponseEntity<Depense> update(@PathVariable("depenseId") Long id, @Valid @RequestBody Depense depense) {
-        Depense update = service.update(id, depense);
+    public ResponseEntity<Depense> update(@PathVariable("depenseId") Long id, @Valid @RequestBody DepenseDto depenseDto) {
+        Depense update = service.update(id, depenseMapper.dtoToDepense(depenseDto));
         return new ResponseEntity<>(update, HttpStatus.OK);
     }
 }

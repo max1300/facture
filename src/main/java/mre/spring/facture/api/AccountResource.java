@@ -45,8 +45,8 @@ public class AccountResource {
 
     @PostMapping("/{accountId}")
     @Transactional(Transactional.TxType.REQUIRED)
-    public ResponseEntity<Account> update(@PathVariable("accountId") Long id, @Valid @RequestBody Account account) {
-        Account update = service.update(id, account);
+    public ResponseEntity<Account> update(@PathVariable("accountId") Long id, @Valid @RequestBody AccountDto accountDto) {
+        Account update = service.update(id, accountMapper.dtoToAccount(accountDto));
         return new ResponseEntity<>(update, HttpStatus.OK);
     }
 }
