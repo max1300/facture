@@ -1,25 +1,25 @@
 package mre.spring.facture.services;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mre.spring.facture.dto.request.AuthenticationResponse;
 import mre.spring.facture.dto.request.LoginRequest;
 import mre.spring.facture.dto.request.RegisterRequest;
-import mre.spring.facture.exception.SpringAuthException;
+import mre.spring.facture.exception.ObjectNotFoundException;
 import mre.spring.facture.models.ApiUser;
 import mre.spring.facture.models.NotificationEmail;
 import mre.spring.facture.models.VerificationToken;
 import mre.spring.facture.repositories.ApiUserRepository;
 import mre.spring.facture.repositories.VerificationTokenRepository;
 import mre.spring.facture.security.jwt.JwtProvider;
-import org.checkerframework.checker.units.qual.A;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -38,7 +38,6 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
     private final VerificationTokenRepository verificationTokenRepository;
-    private final MailBuilder mailContentBuilder;
     private final MailService mailService;
 
 
@@ -83,13 +82,14 @@ public class AuthService {
 
     public void verifyAccount(String token) {
         Optional<VerificationToken> verificationTokenOptional = verificationTokenRepository.findByToken(token);
-        verificationTokenOptional.orElseThrow(() -> new SpringAuthException("Invalid Token"));
-        fetchUserAndEnable(verificationTokenOptional.get());
+        VerificationToken tokenVerified = verificationTokenOptional
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid Token"));
+        fetchUserAndEnable(tokenVerified);
     }
 
     private void fetchUserAndEnable(VerificationToken verificationToken) {
         String username = verificationToken.getUser().getUsername();
-        ApiUser user = apiUserRepository.findByUsername(username).orElseThrow(() -> new SpringAuthException("User not found with name - " + username));
+        ApiUser user = apiUserRepository.findByUsername(username).orElseThrow(() -> new ObjectNotFoundException("User not found with name - " + username));
         user.setEnabled(true);
         apiUserRepository.save(user);
     }

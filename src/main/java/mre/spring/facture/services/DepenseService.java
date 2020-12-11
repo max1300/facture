@@ -3,6 +3,7 @@ package mre.spring.facture.services;
 import lombok.AllArgsConstructor;
 import mre.spring.facture.dto.mappers.DepenseMapper;
 import mre.spring.facture.dto.modelsdto.DepenseDto;
+import mre.spring.facture.exception.ObjectNotFoundException;
 import mre.spring.facture.models.Depense;
 import mre.spring.facture.repositories.DepenseRepository;
 import mre.spring.facture.utils.ServiceUtils;
@@ -26,7 +27,8 @@ public class DepenseService implements DepenseServiceInterface{
     @Override
     public Depense update(Long id, Depense depense) {
         Optional<Depense> optionalDepense = depenseRepository.findById(id);
-        Depense depenseToUpdate = optionalDepense.orElse(null);
+        Depense depenseToUpdate = optionalDepense.orElseThrow(
+                ()-> new ObjectNotFoundException("Depense with id : " + id + " not found"));
 
         depenseToUpdate = serviceUtils.copyProperties(depenseToUpdate, depense);
 
@@ -43,7 +45,8 @@ public class DepenseService implements DepenseServiceInterface{
 
     @Override
     public Depense getById(Long id) {
-        return depenseRepository.findById(id).orElse(null);
+        return depenseRepository.findById(id).orElseThrow(
+                ()-> new ObjectNotFoundException("Depense with id : " + id + " not found"));
     }
 
     @Override

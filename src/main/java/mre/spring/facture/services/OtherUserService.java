@@ -1,6 +1,7 @@
 package mre.spring.facture.services;
 
 import lombok.AllArgsConstructor;
+import mre.spring.facture.exception.ObjectNotFoundException;
 import mre.spring.facture.models.OtherUser;
 import mre.spring.facture.repositories.OtherUserRepository;
 import mre.spring.facture.utils.ServiceUtils;
@@ -23,7 +24,8 @@ public class OtherUserService implements OtherUserServiceInterface {
     @Override
     public OtherUser update(Long id, OtherUser otherUser) {
         Optional<OtherUser> optionalOtherUser = repository.findById(id);
-        OtherUser otherUserToUpdate = optionalOtherUser.orElse(null);
+        OtherUser otherUserToUpdate = optionalOtherUser.orElseThrow(
+                ()-> new ObjectNotFoundException("Other with id : " + id + " not found"));
 
         otherUserToUpdate = serviceUtils.copyProperties(otherUserToUpdate, otherUser);
 
@@ -40,7 +42,8 @@ public class OtherUserService implements OtherUserServiceInterface {
 
     @Override
     public OtherUser getById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow(
+                ()-> new ObjectNotFoundException("OtherUser with id : " + id + " not found"));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package mre.spring.facture.services;
 
 import lombok.AllArgsConstructor;
+import mre.spring.facture.exception.ObjectNotFoundException;
 import mre.spring.facture.models.Entreprise;
 import mre.spring.facture.repositories.EntrepriseRepository;
 import mre.spring.facture.utils.ServiceUtils;
@@ -23,7 +24,8 @@ public class EntrepriseService implements EntrepriseServiceInterface {
     @Override
     public Entreprise update(Long id, Entreprise entreprise) {
         Optional<Entreprise> optionalEntreprise = repository.findById(id);
-        Entreprise entrepriseToUpdate = optionalEntreprise.orElse(null);
+        Entreprise entrepriseToUpdate = optionalEntreprise.orElseThrow(
+                ()-> new ObjectNotFoundException("Entreprise with id : " + id + " not found"));
 
         entrepriseToUpdate = serviceUtils.copyProperties(entrepriseToUpdate, entreprise);
 
@@ -40,7 +42,8 @@ public class EntrepriseService implements EntrepriseServiceInterface {
 
     @Override
     public Entreprise getById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id).orElseThrow(
+                ()-> new ObjectNotFoundException("Entreprise with id : " + id + " not found"));
     }
 
     @Override

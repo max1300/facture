@@ -3,6 +3,7 @@ package mre.spring.facture.services;
 import lombok.AllArgsConstructor;
 import mre.spring.facture.dto.mappers.RentreeMapper;
 import mre.spring.facture.dto.modelsdto.RentreeDto;
+import mre.spring.facture.exception.ObjectNotFoundException;
 import mre.spring.facture.models.Rentree;
 import mre.spring.facture.repositories.RentreeRepository;
 import mre.spring.facture.utils.ServiceUtils;
@@ -27,7 +28,8 @@ public class RentreeService implements RentreeServiceInterface {
     @Override
     public Rentree update(Long id, Rentree rentree) {
         Optional<Rentree> optionalRentree = rentreeRepository.findById(id);
-        Rentree rentreeToUpdate = optionalRentree.orElse(null);
+        Rentree rentreeToUpdate = optionalRentree.orElseThrow(
+                ()-> new ObjectNotFoundException("Rentree with id : " + id + " not found"));
 
         rentreeToUpdate = serviceUtils.copyProperties(rentreeToUpdate, rentree);
 
@@ -44,7 +46,8 @@ public class RentreeService implements RentreeServiceInterface {
 
     @Override
     public Rentree getById(Long id) {
-        return rentreeRepository.findById(id).orElse(null);
+        return rentreeRepository.findById(id).orElseThrow(
+                ()-> new ObjectNotFoundException("Rentree with id : " + id + " not found"));
     }
 
     @Override

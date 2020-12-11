@@ -1,13 +1,10 @@
 package mre.spring.facture.services;
 
 import lombok.AllArgsConstructor;
+import mre.spring.facture.exception.ObjectNotFoundException;
 import mre.spring.facture.models.Account;
 import mre.spring.facture.repositories.AccountRepository;
 import mre.spring.facture.utils.ServiceUtils;
-import org.hibernate.Hibernate;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
-import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -29,7 +26,8 @@ public class AccountService implements AccountServiceInterface{
     @Override
     public Account update(Long id, Account account) {
         Optional<Account> optionalAccount = accountRepository.findById(id);
-        Account accountToUpdate = optionalAccount.orElse(null);
+        Account accountToUpdate = optionalAccount.orElseThrow(
+                ()-> new ObjectNotFoundException("Account with id : " + id + " not found"));
 
         accountToUpdate = serviceUtils.copyProperties(accountToUpdate, account);
 
@@ -46,7 +44,8 @@ public class AccountService implements AccountServiceInterface{
 
     @Override
     public Account getById(Long id) {
-        return accountRepository.findById(id).orElse(null);
+        return accountRepository.findById(id).orElseThrow(
+                ()-> new ObjectNotFoundException("Account with id : " + id + " not found"));
     }
 
     @Override

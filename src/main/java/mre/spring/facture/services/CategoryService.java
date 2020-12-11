@@ -1,6 +1,7 @@
 package mre.spring.facture.services;
 
 import lombok.AllArgsConstructor;
+import mre.spring.facture.exception.ObjectNotFoundException;
 import mre.spring.facture.models.Category;
 import mre.spring.facture.repositories.CategoryRepository;
 import mre.spring.facture.utils.ServiceUtils;
@@ -23,7 +24,8 @@ public class CategoryService implements CategoryServiceInterface{
     @Override
     public Category update(Long id, Category category) {
         Optional<Category> optionalCategory = categoryRepository.findById(id);
-        Category categoryToUpdate = optionalCategory.orElse(null);
+        Category categoryToUpdate = optionalCategory.orElseThrow(
+                ()-> new ObjectNotFoundException("Category with id : " + id + " not found"));
 
         categoryToUpdate = serviceUtils.copyProperties(categoryToUpdate, category);
 
@@ -40,7 +42,8 @@ public class CategoryService implements CategoryServiceInterface{
 
     @Override
     public Category getById(Long id) {
-        return categoryRepository.findById(id).orElse(null);
+        return categoryRepository.findById(id).orElseThrow(
+                ()-> new ObjectNotFoundException("Category with id : " + id + " not found"));
     }
 
     @Override
