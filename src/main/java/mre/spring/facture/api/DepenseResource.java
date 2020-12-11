@@ -5,6 +5,8 @@ import mre.spring.facture.dto.mappers.DepenseMapper;
 import mre.spring.facture.dto.modelsdto.DepenseDto;
 import mre.spring.facture.models.Depense;
 import mre.spring.facture.services.DepenseServiceInterface;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -21,26 +23,31 @@ public class DepenseResource {
     private final DepenseMapper depenseMapper;
 
     @GetMapping
-    public List<DepenseDto> allDepenses() {
-        return service.allDepenses().stream()
-                .map(depense -> depenseMapper.depenseToDto(depense))
+    public ResponseEntity<DepenseDto> allDepenses() {
+        List<DepenseDto> collect = service.allDepenses().stream()
+                .map(depenseMapper::depenseToDto)
                 .collect(Collectors.toList());
+        return new ResponseEntity(collect, HttpStatus.OK);
     }
 
     @GetMapping("/{depenseId}")
-    public DepenseDto getOne(@PathVariable("depenseId") Long id) {
-        return depenseMapper.depenseToDto(service.getById(id));
+    public ResponseEntity<DepenseDto> getOne(@PathVariable("depenseId") Long id) {
+        DepenseDto depenseDto = depenseMapper.depenseToDto(service.getById(id));
+        return new ResponseEntity<>(depenseDto, HttpStatus.OK);
+
     }
 
     @PostMapping
     @Transactional(Transactional.TxType.REQUIRED)
-    public Depense create(@Valid @RequestBody DepenseDto depenseDto) {
-        return service.save(depenseMapper.dtoToDepense(depenseDto));
+    public ResponseEntity<Depense> create(@Valid @RequestBody DepenseDto depenseDto) {
+        Depense save = service.save(depenseMapper.dtoToDepense(depenseDto));
+        return new ResponseEntity(save, HttpStatus.CREATED);
     }
 
     @PostMapping("/{depenseId}")
     @Transactional(Transactional.TxType.REQUIRED)
-    public Depense update(@PathVariable("depenseId") Long id, @Valid @RequestBody Depense depense) {
-        return service.update(id, depense);
+    public ResponseEntity<Depense> update(@PathVariable("depenseId") Long id, @Valid @RequestBody Depense depense) {
+        Depense update = service.update(id, depense);
+        return new ResponseEntity<>(update, HttpStatus.OK);
     }
 }
